@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Delete Applicant</title>
+    <link rel="stylesheet" href='/static/delete_style.css'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="Wrapper" style="background-color: #cf2031;">
+        <div class="Header">
+            <img src="https://bnihoustoneast.com/img/site/6006f0d94781dc002a5e23df.png" alt="BNI logo" height="10%"
+                width="10%">
+            <span class="titleheader">Confirm Deletion</span>
+        </div>
+    </div>
+
+    <div class="Wrapper" style="padding: 40px 0px;">
+        <div class="Wrapper-inner">
+            <div class="cap">Are you sure you want to delete the record for this applicant?</div>
+
+            <ul class="summary-list">
+                <li><span>ID:</span>{{ applicant.applicantID }}</li>
+                <li><span>Name:</span>{{ applicant.applicantName }}</li>
+                <li><span>Email:</span>{{ applicant.email }}</li>
+                <li><span>Chapter:</span>{{ applicant.chapterName }}</li>
+                <li><span>Date Applied:</span>{{ applicant.dateOfApplication }}</li>
+                <li><span>Mobile Num:</span>{{ applicant.mobileNum }}</li>
+                <li><span>Specialty:</span>{{ applicant.specialtyAppliedFor }}</li>
+                <li><span>Industry:</span>{{ applicant.industry }}</li>
+                <li><span>Business:</span>{{ applicant.businessName }}</li>
+            </ul>
+
+            <div class="Flex">
+                <form action="{{ url_for('delete', applicantID=applicant.applicantID) }}" method="POST">
+                    <button type="submit" class="Button">Confirm Delete</button>
+                </form>
+                <a href="{{ url_for('read') }}" class="Button cancel">Cancel</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

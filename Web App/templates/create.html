@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Record</title>
+    <link rel="stylesheet" href="/static/create_style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <form method="POST">
+        <div class="Wrapper">
+            <div class="Wrapper-inner">
+                <div>
+                    <div class="Header">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdIQcKj5seecK817Ezj4mIT-a7k0NOJ8ydbg&s"
+                            alt="BNI Logo" height="7%" width="7%">
+                        <p class="titleheader">NEW RECORD </p>
+                        <a href="{{ url_for('home') }}">
+                            <img id="HomeBtn" height="40px" width="auto"
+                                src="https://uxwing.com/wp-content/themes/uxwing/download/web-app-development/home-page-white-icon.png">
+                        </a>
+                    </div>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    {% for category, message in messages %}
+                    <div class="{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                </div>
+                <div class="Header-Sep"> Applicant </div>
+                <div class="Flex">
+                    <div style="max-width: 20%;">
+                        <label for="dateOfApplication" class="Label">Date of Application</label>
+                        <input type="date" name="dateOfApplication" id="dateOfApplication"
+                            value="{{ form_data.dateOfApplication if form_data else '' }}" required class="Input">
+                    </div>
+                    <div>
+                        <label for="FirstName" class="Label">First Name</label>
+                        <input type="text" name="FirstName" id="FirstName"
+                            value="{{ form_data.FirstName if form_data else '' }}" required class="Input">
+                    </div>
+                    <div>
+                        <label for="LastName" class="Label">Last Name</label>
+                        <input type="text" name="LastName" id="LastName"
+                            value="{{ form_data.LastName if form_data else '' }}" required class="Input">
+                    </div>
+                    <div class="Input-FLex" style="max-width: 10%;">
+                        <div>
+                            <label for="Middle" class="Label">Middle Initial</label>
+                            <input type="text" name="Middle" id="Middle"
+                                value="{{ form_data.Middle if form_data else '' }}" class="Input">
+                        </div>
+                    </div>
+                </div>
+                <div class="Flex">
+                    <div style="max-width: 20%;">
+                        <label for="mobileNum" class="Label">Mobile Number</label>
+                        <input type="tel" name="mobileNum" id="mobileNum" pattern="04[0-9]{8}" maxlength="10" value="04"
+                            required class="Input">
+                    </div>
+                    <div style="max-width: 30%;">
+                        <label for="email" class="Label">E-mail</label>
+                        <input type="email" name="email" id="email" value="{{ form_data.email if form_data else '' }}"
+                            required class="Input">
+                    </div>
+                    <div>
+                        <label for="DeliveryAdd" class="Label">Delivery Address</label>
+                        <input type="text" name="deliveryAddress" id="deliveryAddress"
+                            value="{{ form_data.Deliveryadd if form_data else '' }}" required class="Input">
+                    </div>
+                </div>
+                <div class="Flex">
+                    <div style="max-width: 25%;">
+                        <label for="chapterName" class="Label">Chapter Name</label>
+                        <input type="text" name="chapterName" id="chapterName"
+                            value="{{ form_data.chapterName if form_data else '' }}" required class="Input">
+                    </div>
+                    <div style="max-width: 30%;">
+                        <label for="businessName" class="Label">Business Name</label>
+                        <input type="text" name="businessName" id="businessName"
+                            value="{{ form_data.businessName if form_data else '' }}" required class="Input">
+                    </div>
+                    <div style="max-width: 20%;">
+                        <label for="ausBusNum" class="Label">Australian Business Number</label>
+                        <input type="text" name="ausBusNum" id="ausBusNum"
+                            value="{{ form_data.ausBusNum if form_data else '' }}" pattern="\d{11}" maxlength="11"
+                            title="ABN must be 11 digits" class="Input">
+                    </div>
+                    <div style="max-width: 20%;">
+                        <label for="busPhoneNum" class="Label">Business Phone Number</label>
+                        <input type="tel" name="busPhoneNum" id="busPhoneNum" pattern="04[0-9]{8}" maxlength="10"
+                            value="04" required class="Input">
+                    </div>
+                </div>
+                <div class="Flex">
+                    <div>
+                        <label for="website" class="Label">Business Website</label>
+                        <input type="text" name="website" id="website"
+                            value="{{ form_data.website if form_data else '' }}" required class="Input">
+                    </div>
+                    <div>
+                        <label for="businessAdd" class="Label">Business Address</label>
+                        <input type="text" name="businessAdd" id="businessAdd"
+                            value="{{ form_data.businessAdd if form_data else '' }}" required class="Input">
+                    </div>
+                </div>
+                <div class="Flex">
+                </div>
+                <div class="Flex">
+                    <div>
+                        <label for="invitedBy" class="Label">Who invited you to BNI?</label>
+                        <input type="text" name="invitedBy" id="invitedBy"
+                            value="{{ form_data.invitedBy if form_data else '' }}" required class="Input">
+                    </div>
+                    <div>
+                        <label for="industry" class="Label">Industry Applying For?</label>
+                        <select type="text" name="industry" id="industry"
+                            value="{{ form_data.industry if form_data else '' }}" required class="Input">
+                            <option value="" disabled selected hidden>Select Industry </option>
+                            <option value="Accountancy">Accountancy</option>
+                            <option value="Advertising">Advertising</option>
+                            <option value="Agribusiness">Agribusiness</option>
+                            <option value="Construction">Construction</option>
+                            <option value="Electricity">Electricity</option>
+                            <option value="Environmental">Environmental</option>
+                            <option value="Food and Baverage">Food and Baverage</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Information Technology">Information Technology</option>
+                            <option value="Insurance">Insurance</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Oil, Gas, and Mining">Oil, Gas, and Mining</option>
+                            <option value="Telecommunications">Telecommunications</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="specialtyAppliedFor" class="Label">Business Specialty?</label>
+                        <input type="text" name="specialtyAppliedFor" id="specialtyAppliedFor"
+                            value="{{ form_data.specialtyAppliedFor if form_data else '' }}" required class="Input">
+                    </div>
+                </div>
+                <div class="Label" style="margin-top: 30px; margin-bottom: -10px;"> MEMBERSHIP QUALIFIERS </div>
+                <div class="Flex">
+                    <div class="radio" style="max-width: 20%;">
+                        <label class="Label" style="margin-bottom: 10px;">Prepared to invite people to your BNI
+                            Chapter?</label>
+                        <input id="orgInvite-yes" name="orgInvite" value="yes" type="radio" checked>
+                        <label for="orgInvite-yes" class="radio-label" style="margin-right: 20px; ">Yes</label>
+                        <input id="orgInvite-no" name="orgInvite" value="no" type="radio">
+                        <label for="orgInvite-no" class="radio-label">No</label>
+                    </div>
+                    <div class="radio" style="max-width: 25%;">
+                        <label class="Label" style="margin-bottom: 10px;">Have you ever been convicted of an act of
+                            dishonesty or any other offence?</label>
+                        <input id="convictionHistory-yes" name="convictionHistory" value="yes" type="radio">
+                        <label for="convictionHistory-yes" class="radio-label" style="margin-right: 20px;">Yes</label>
+                        <input id="convictionHistory-no" name="convictionHistory" value="no" type="radio" checked>
+                        <label for="convictionHistory-no" class="radio-label">No</label>
+                    </div>
+                </div>
+                <div class="Header-Sep" style="margin-top: 50px;">References</div>
+                {% for i in range(1, 3) %}
+                <div class="Header-Two">Reference {{ i }}</div>
+                <div class="Flex">
+                    <div>
+                        <label for="nameOfBusRef_{{ i }}" class="Label">Reference Name</label>
+                        <input type="text" name="nameOfBusRef_{{ i }}" id="nameOfBusRef_{{ i }}"
+                            value="{{ form_data['nameOfBusRef_' ~ i] if form_data else '' }}" required class="Input">
+                    </div>
+                    <div style="max-width: 20%;">
+                        <label for="busRefPosition_{{ i }}" class="Label">Position</label>
+                        <input type="text" name="busRefPosition_{{ i }}" id="busRefPosition_{{ i }}"
+                            value="{{ form_data['busRefPosition_' ~ i] if form_data else '' }}" required class="Input">
+                    </div>
+                    <div>
+                        <label for="busRefBusiness_{{ i }}" class="Label">Reference's Business Name</label>
+                        <input type="text" name="busRefBusiness_{{ i }}" id="busRefBusiness_{{ i }}"
+                            value="{{ form_data['busRefBusiness_' ~ i] if form_data else '' }}" required class="Input">
+                    </div>
+                </div>
+                <div class="Flex">
+                    <div style="max-width: 20%;">
+                        <label for="busRefMobileNum_{{ i }}" class="Label">Mobile Number</label>
+                        <input type="tel" name="busRefMobileNum_{{ i }}" id="busRefMobileNum_{{ i }}"
+                            pattern="04[0-9]{8}" maxlength="10" value="04" required class="Input">
+                    </div>
+                    <div>
+                        <label for="busRefEmail_{{ i }}" class="Label">Email</label>
+                        <input type="email" name="busRefEmail_{{ i }}" id="busRefEmail_{{ i }}"
+                            value="{{ form_data['busRefEmail_' ~ i] if form_data else '' }}" required class="Input">
+                    </div>
+                    <div style="max-width: 30%;">
+                        <label for="busRefRelationship_{{ i }}" class="Label">Relationship with Reference</label>
+                        <input type="text" name="busRefRelationship_{{ i }}" id="busRefRelationship_{{ i }}"
+                            value="{{ form_data['busRefRelationship_' ~ i] if form_data else '' }}" required
+                            class="Input">
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="Header-Sep" style="margin-top: 50px;">Education</div>
+                <div class="Flex">
+                    <div style="max-width: 20%;">
+                        <label for="yearGrad" class="Label">Year Graduated</label>
+                        <input type="number" name="yearGrad" id="yearGrad"
+                            value="{{ form_data.yearGrad if form_data else '' }}" min="1900" max="2024" step="1"
+                            required class="Input" placeholder="YYYY">
+                    </div>
+                    <div>
+                        <label for="schoolName" class="Label">Name of School Graduated From</label>
+                        <input type="text" name="schoolName" id="schoolName"
+                            value="{{ form_data.schoolName if form_data else '' }}" required class="Input">
+                    </div>
+                    <div>
+                        <label for="schoolAddress" class="Label">School Address</label>
+                        <input type="text" name="schoolAddress" id="schoolAddress"
+                            value="{{ form_data.schoolAddress if form_data else '' }}" required class="Input">
+                    </div>
+                    <div style="max-width: 20%;">
+                        <label for="degree" class="Label">Degree Achieved</label>
+                        <input type="text" name="degree" id="degree" value="{{ form_data.degree if form_data else '' }}"
+                            required class="Input">
+                    </div>
+                    <input type="hidden" id="dateOfApplication" name="dateOfApplication">
+                </div>
+                <input type="submit" style="margin-top: 60px; margin-left:505px; margin-bottom:20px;"
+                    value="SUBMIT APPLICATION" class="Button">
+            </div>
+        </div>
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        // ABN validation and formatting
+        $("#ausBusNum").on('input', function () {
+            // Remove non-digit characters
+            let value = $(this).val().replace(/\D/g, '');
+
+            // Truncate to 11 digits if longer
+            if (value.length > 11) {
+                value = value.substr(0, 11);
+            }
+
+            // Update input value
+            $(this).val(value);
+        });
+
+        // Form submission validation
+        $('form').submit(function (e) {
+            let abn = $("#ausBusNum").val();
+            if (abn && abn.length !== 11) {
+                alert('ABN must be 11 digits');
+                e.preventDefault();
+                return false;
+            }
+
+            // Function to format and validate Australian mobile numbers
+            function formatMobileNumber(input) {
+                let value = input.value.replace(/\D/g, '');
+                if (value.length > 0 && value[0] !== '0') {
+                    value = '0' + value;
+                }
+                let formattedNumber = '';
+                if (value.length > 0) {
+                    formattedNumber = value.substring(0, 4) + ' ';
+                    if (value.length > 4) {
+                        formattedNumber += value.substring(4, 7) + ' ';
+                        if (value.length > 7) {
+                            formattedNumber += value.substring(7, 10);
+                        } else {
+                            formattedNumber += value.substring(7);
+                        }
+                    } else {
+                        formattedNumber += value.substring(4);
+                    }
+                }
+                input.value = formattedNumber.trim();
+            }
+
+            // Apply formatting to all mobile number inputs
+            $('input[type="tel"]').on('input', function () {
+                formatMobileNumber(this);
+            });
+
+            // Validate mobile numbers before form submission
+            $('form').submit(function (e) {
+                let isValid = true;
+                $('input[type="tel"]').each(function () {
+                    if (!this.checkValidity()) {
+                        alert('Please enter a valid Australian mobile number in the format: 04xx xxx xxx');
+                        isValid = false;
+                        return false;
+                    }
+                });
+                if (!isValid) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

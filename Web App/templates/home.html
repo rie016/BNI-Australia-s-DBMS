@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNI Applicant Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href='/static/home_style.css'>
+</head>
+
+<body>
+    <div class="Background"></div>
+    <div class="Wrapper">
+        <div class="logo-nav-container">
+            <div class="Header">
+                <img src="https://bnihoustoneast.com/img/site/6006f0d94781dc002a5e23df.png" alt="BNI logo"
+                    height="40px">
+            </div>
+            <nav class="nav-items">
+                <a>HOME</a>
+        </div>
+        <div><a href="{{ url_for('logout') }}" class="logout-btn">LOG OUT</a></div>
+    </div>
+
+
+    <div class="Wrapper2">
+        <div class="text-block">
+            <p style="font-size: 40px; color: #ffffff;">GROUP 4</p>
+            <p>INFORMATION</p>
+            <p>MANAGEMENT</p>
+        </div>
+        <div class="Wrapper-inner2">
+            <div>
+                <div style="margin-bottom: 20px;"><a href="{{ url_for('create') }}" class="Button">CREATE NEW RECORD</a>
+                </div>
+                <div style="margin-bottom: 20px;"><a href="{{ url_for('read') }}" class="Button">VIEW DATABASE</a></div>
+                <div style="margin-bottom: 20px;"><a href="{{ url_for('query') }}" class="Button">DATABASE QUERY</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

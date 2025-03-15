@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Queries</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href='/static/query_style.css'>
+</head>
+
+<body>
+    <div class="Wrapper" style="background-color: #cf2031;">
+        <div class="Header">
+            <img src="https://bnihoustoneast.com/img/site/6006f0d94781dc002a5e23df.png" alt="BNI logo" height="10%"
+                width="10%">
+            <span class="titleheader">Database Queries</span>
+        </div>
+    </div>
+
+    <div class="Wrapper" style="padding: 40px 0px;">
+        <div class="Wrapper-inner">
+            <div class="query-section">
+                <div class="cap">Simple</div>
+                <div class="query-toggle" onclick="toggleSimpleQueries()">View All</div>
+                <div id="simple-queries" style="display: none;">
+                    <div class="query-form">
+                        <h3>Query 1</h3>
+                        <p>Retrieve the list of applicants who applied after January 1, 2022, and are from the "Accountancy" industry.</p>
+                        <p>Order the results by date of application in descending order (newest applications first).</p>
+                        <br>
+                        <div class="sql-codes">
+                            <p>SELECT applicantID, applicantName, dateOfApplication, industry, invitedBy</p>
+                            <p>FROM applicantinfo</p>
+                            <p>WHERE (dateOfApplication > '2022-01-01' AND industry = 'Accountancy')</p>
+                            <p>ORDER BY dateOfApplication DESC;</p>
+                        </div>
+                        <form method="POST">
+                            <input type="hidden" name="query_type" value="simple1">
+                            <input type="submit" value="Run" class="Button">
+                        </form>
+                    </div>
+
+                    <div class="query-form">
+                        <h3>Query 2</h3>
+                        <p>Retrieve names of applicants who have a delivery address in "Sydney".</p>
+                        <p>Applicants must also have a valid business number.</p>
+                        <p>Order the results by applicantName.</p>
+                        <br>
+                        <div class="sql-codes">
+                            <p>SELECT applicantName, businessAdd</p>
+                            <p>FROM applicantinfo</p>
+                            <p>WHERE businessAdd LIKE '%Sydney%' AND busPhoneNum NOT LIKE '%N/A%'</p>
+                            <p>ORDER BY applicantName;</p>
+                        </div>
+                        <form method="POST">
+                            <input type="hidden" name="query_type" value="simple2">
+                            <input type="submit" value="Run" class="Button">
+                        </form>
+                    </div>
+
+                    <div class="query-form">
+                        <h3>Query 3</h3>
+                        <p>Retrieve the names, emails, and application dates of applicants who applied with an Australian Business Number</p>
+                        <p>Applicants must also have an ABN and situatited in US</p>
+                        <p>Order the results by applicantName.</p>
+                        <br>
+                        <div class="sql-codes">
+                            <p>SELECT applicantName, email, dateOfApplication</p>
+                            <p>FROM applicantinfo</p>
+                            <p>WHERE ausBusNum NOT LIKE '%N/A%' AND businessAdd LIKE '%USA%'</p>
+                            <p>ORDER BY applicantName;</p>
+                        <form method="POST">
+                            <input type="hidden" name="query_type" value="simple3">
+                            <input type="submit" value="Run" class="Button">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="query-section">
+                <div class="cap">Moderate</div>
+                <div class="query-toggle" onclick="toggleModerateQueries()">View All</div>
+                <div id="moderate-queries" style="display: none;">
+                    <div class="query-form">
+                        <h3>Query 1</h3>
+                        <p>Find which business relationships have more than one applicant.</p>
+                        <br>
+                        <div class="sql-codes">
+                            <p>SELECT busRefRelationship, COUNT(applicantID) AS numberOfApplicants</p>
+                            <p>FROM businessreferences</p>
+                            <p>GROUP BY busRefRelationship</p>
+                            <p>HAVING COUNT(applicantID) > 1;</p>
+                        </div>
+                        <form method="POST">
+                            <input type="hidden" name="query_type" value="moderate1">
+                            <input type="submit" value="Run" class="Button">
+                        </form>
+                    </div>
+            
+                    <div class="query-form">
+                        <h3>Query 2</h3>
+                        <p>Count the number of business positions having more than 1 applicant</p>
+                        <br>
+                        <div class="sql-codes">
+                            <p>SELECT busRefposition, COUNT(*) AS applicantCount</p>
+                            <p>FROM businessreferences</p>
+                            <p>GROUP BY busRefposition</p>
+                            <p>HAVING COUNT(*) > 1;</p>
+                        </div>
+                        <form method="POST">
+                            <input type="hidden" name="query_type" value="moderate2">
+                            <input type="submit" value="Run" class="Button">
+                        </form>
+                    </div>
+            
+                    <div class="query-form">
+                        <h3>Query 3</h3>
+                        <p>Determine how many business reference names end with the letter 'N' and are owners, CEOs, or partners.</p>
+                        <br>
+                        <div class="sql-codes">
+                            <p>SELECT busRefPosition, COUNT(nameOfBusRef) AS busRefNamesEndingWithN</p>
+                            <p>FROM businessreferences</p>
+                            <p>WHERE nameOfBusRef LIKE '%N' AND busRefPosition IN ('Owner','CEO','Partner')</p>
+                            <p>GROUP BY busRefPosition;</p>
+                        </div>
+                        <form method="POST">
+                            <input type="hidden" name="query_type" value="moderate3">
+                            <input type="submit" value="Run" class="Button">
+                        </form>
+                    </div>
+
+                    <div class="query-form">
+                        <h3>Query 4</h3>
+                        <p>Find out which post-pandemic years had non-US applicants</p>
+                        <br>
+                        <div class="sql-codes">
+                            <p>SELECT YEAR(dateOfApplication) AS 'yearApplied', COUNT(*) AS postPandemicApplicantCount</p>
+                            <p>FROM applicantinfo</p>
+                            <p>WHERE YEAR(dateOfApplication) > '2020' AND businessAdd NOT LIKE '%USA%'</p>
+                            <p>GROUP BY yearApplied</p>
+                            <p>ORDER BY yearApplied;</p>
+                        </div>
+                        <form method="POST">
+                            <input type="hidden" name="query_type" value="moderate4">
+                            <input type="submit" value="Run" class="Button">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <div class="query-section">
+                <div class="cap">Difficult</div>
+                <div class="query-toggle" onclick="toggleDifficultQueries()">View All</div>
+                <div id="difficult-queries" style="display: none;">
+                    <div class="query-form">
+                        <h3>Query 1</h3>
+                        <p>Retrieve the names of applicants along with their assigned mobile number, business referral names and email.</p>
+                        <p>Display only those applicants who have a degree in Business Administration. Sort by name of business referral.</p>
+                        <br>
+                        <div class="sql-codes">
+                            <p>SELECT a.applicantName, a.mobileNum, a.email, ad.degree AS degree, b.nameOfBusRef</p>
+                            <p>FROM applicantinfo AS a, academicdegree AS ad, businessreferences AS b</p>
+                            <p>WHERE a.applicantID = ad.acadCode AND</p>
+                            <p> a.applicantID = b.applicantID AND</p>
+                            <p> ad.degree = 'Business Administration'</p>
+                            <p>ORDER BY b.nameOfBusRef;</p>
+                        </div>
+                        <form method="POST">
+                            <input type="hidden" name="query_type" value="difficult1">
+                            <input type="submit" value="Run" class="Button">
+                        </form>
+                    </div>
+            
+                    <div class="query-form">
+                        <h3>Query 2</h3>
+                        <p>Retrieve the names of applicants and their respective business references.</p>
+                        <p>Include only those applicants who have a degree in IT.</p>
+                        <br>
+                        <div class="sql-codes">
+                            <p>SELECT a.applicantName, b.nameOfBusRef</p>
+                            <p>FROM applicantinfo AS a, academicdegree AS d, businessreferences AS b</p>
+                            <p>WHERE a.applicantID = d.acadCode AND</p>
+                            <p> a.applicantID = b.applicantID AND </p>
+                            <p> d.degree = 'Information Technology';</p>
+                        </div>
+                        <form method="POST">
+                            <input type="hidden" name="query_type" value="difficult2">
+                            <input type="submit" value="Run" class="Button">
+                        </form>
+                    </div>
+            
+                    <div class="query-form">
+                        <h3>Query 3</h3>
+                        <p>Count how many business references each applicant has that are CEOs or owners.</p>
+                        <br>
+                        <div class="sql-codes">
+                            <p>SELECT a.applicantName, b.busRefposition, COUNT(b.busRefCode) AS busRefCount</p>
+                            <p>FROM applicantinfo AS a, businessreferences AS b</p>
+                            <p>WHERE a.applicantID = b.applicantID AND</p>
+                            <p> b.busRefPosition IN ('Owner','CEO')</p>
+                            <p>GROUP BY a.applicantName, b.busRefposition</p>
+                            <p>ORDER BY a.applicantName, b.busRefposition;</p>
+                        </div>
+                        <form method="POST">
+                            <input type="hidden" name="query_type" value="difficult3">
+                            <input type="submit" value="Run" class="Button">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div id="result-box" style="margin-top: 20px; border: 1px solid #ccc; padding: 10px;">
+                <h2>Query Results</h2>
+                {% if current_query %}
+                <h3>{{ current_query }}</h3>
+                {% endif %}
+                {% if result is not none %}
+                <table>
+                    <tr>
+                        {% if current_query.startswith('Simple Query 1') %}
+                        <th>Applicant ID</th>
+                        <th>Applicant Name</th>
+                        <th>Date of Application</th>
+                        <th>Industry</th>
+                        <th>Invited By</th>
+                        {% elif current_query.startswith('Simple Query 2') %}
+                        <th>Applicant Name</th>
+                        <th>Business Address</th>
+                        {% elif current_query.startswith('Simple Query 3') %}
+                        <th>Applicant Name</th>
+                        <th>Email</th>
+                        <th>Date of Application</th>
+                        {% elif current_query.startswith('Moderate Query 1') %}
+                        <th>Business Relationship</th>
+                        <th>Number of Applicants</th>
+                        {% elif current_query.startswith('Moderate Query 2') %}
+                        <th>Business Position</th>
+                        <th>Applicant Count</th>
+                        {% elif current_query.startswith('Moderate Query 3') %}
+                        <th>Business Position</th>
+                        <th>Count of Names Ending with 'N'</th>
+                        {% elif current_query.startswith('Moderate Query 4') %}
+                        <th>Year Applied</th>
+                        <th>Post-Pandemic Applicant Count</th>
+                        {% elif current_query.startswith('Difficult Query 1') %}
+                        <th>Applicant Name</th>
+                        <th>Mobile Number</th>
+                        <th>Email</th>
+                        <th>Degree</th>
+                        <th>Business Reference Name</th>
+                        {% elif current_query.startswith('Difficult Query 2') %}
+                        <th>Applicant Name</th>
+                        <th>Business Reference Name</th>
+                        {% elif current_query.startswith('Difficult Query 3') %}
+                        <th>Applicant Name</th>
+                        <th>Business Reference Position</th>
+                        <th>Business Reference Count</th>
+                        {% endif %}
+                    </tr>
+                    {% for row in result %}
+                    <tr>
+                        {% for cell in row %}
+                        <td>{{ cell }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% else %}
+                <p>No query results to display. Run a query to see results here.</p>
+                {% endif %}
+            </div>
+            <div class="Flex">
+                <a href="{{ url_for('home') }}" class="Button">Back to Home <i class="fa-solid fa-house"></i></a>
+                <a href="{{ url_for('read') }}" class="Button">Back to Database <i class="fas fa-database"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSimpleQueries() {
+            var simpleQueriesDiv = document.getElementById("simple-queries");
+            simpleQueriesDiv.style.display = simpleQueriesDiv.style.display === "none" ? "block" : "none";
+        }
+
+        function toggleModerateQueries() {
+            var moderateQueriesDiv = document.getElementById("moderate-queries");
+            moderateQueriesDiv.style.display = moderateQueriesDiv.style.display === "none" ? "block" : "none";
+        }
+
+        function toggleDifficultQueries() {
+            var difficultQueriesDiv = document.getElementById("difficult-queries");
+            difficultQueriesDiv.style.display = difficultQueriesDiv.style.display === "none" ? "block" : "none";
+        }
+    </script>
+</body>
+
+</html>

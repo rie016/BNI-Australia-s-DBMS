@@ -1,0 +1,190 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Outift", sans-serif;
+}
+
+body {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    background: rgb(255, 255, 255);
+}
+
+.logo-nav-container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-items {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-items a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-items a:hover {
+    color: red;
+}
+
+.Background {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    padding: 30px 50px;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-image: url(https://www.bni.com/wp-content/uploads/2022/02/Ivan-Misner_2560x1920-1.jpg?x59447);
+    filter: blur(3px);
+    -webkit-filter: blur(3px);
+    z-index: -1;
+}
+
+.Wrapper {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: flex;
+    padding: 30px 50px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Wrapper2 {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding: 300px 50px;
+    align-items: center;
+    justify-content: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: center;
+}
+
+
+.Wrapper-inner {
+    padding: 15px 15px;
+    margin: 0 auto;
+    max-width: auto;
+    width: 50%;
+    display: block;
+    gap: 20px;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 14px #646464;
+}
+
+.Wrapper-inner2 {
+    padding: 15px 15px;
+    margin: 0;
+    max-width: auto;
+    width: 30%;
+    display: block;
+    position: relative;
+    top: -50px;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0);
+
+}
+
+* {
+    font-family: 'Outfit', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter Tight', sans-serif;
+    background: rgb(255, 255, 255);
+}
+
+
+.Button {
+    transition: all 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Reduced opacity */
+
+    /* For Safari support */
+    box-shadow: 0px 0px 14px rgba(21, 21, 21, 0.5);
+    /* Adjusted shadow for better visibility */
+    border: solid 2px white;
+    border-radius: 30px;
+    color: white;
+    padding: 15px;
+    max-width: auto;
+    justify-content: center;
+    text-align: center;
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.Button:hover {
+    background-color: #cf2031;
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+.Flex {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.Flex>div {
+    flex: 1;
+}
+
+.text-block {
+    position: absolute;
+    align-items: center;
+    margin-top: -110px;
+    left: 40px;
+    color: #cf2031;
+    font-size: 60px;
+    font-weight: 800;
+    line-height: 60px;
+    text-shadow: 0 0 10px #040404;
+}
+
+.logout-btn {
+    transition: all 0.3s ease;
+    border: solid 2px #cf2031;
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 14px rgba(21, 21, 21, 0.5);
+    border-radius: 30px;
+    color: #cf2031;
+    padding: 10px 20px;
+    max-width: auto;
+    justify-content: center;
+    text-align: center;
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.logout-btn:hover {
+    background-color: #cf2031;
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

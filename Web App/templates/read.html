@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database</title>
+    <link rel="stylesheet" href='/static/read_style.css'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="Wrapper" style="background-color: #cf2031;">
+
+        <div class="Header"><img src="https://bnihoustoneast.com/img/site/6006f0d94781dc002a5e23df.png" alt="BNI logo"
+                height="10%" width="10%">
+            </img><span class="titleheader">Database</span></div>
+    </div>
+
+    <div class="Wrapper" style="padding: 40px 0px;">
+        <div class="Wrapper-inner">
+
+            <div class="cap">Applicants</div>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Chapter Name</th>
+                    <th>Date of Application</th>
+                    <th>Name</th>
+                    <th>Mobile Number</th>
+                    <th>Email</th>
+                    <th>Delivery Address</th>
+                    <th>Invited By</th>
+                    <th>Specialty Applied For</th>
+                    <th>Industry</th>
+                    <th>Specialty Approved</th>
+                    <th>Org Invite</th>
+                    <th>Conviction History</th>
+                    <th>ABN</th>
+                    <th>Business Name</th>
+                    <th>Business Phone Num</th>
+                    <th>Website</th>
+                    <th>Business Address</th>
+                    <th>Education</th>
+                    <th>Actions</th>
+                </tr>
+                </tr>
+                {% for applicant in applicants %}
+                <tr id="applicant_{{ applicant.applicantID }}"
+                    class="{{ 'highlight' if highlight_table == 'applicant' and highlight_id|int == applicant.applicantID }}">
+                    <td>{{ applicant.applicantID }}</td>
+                    <td>{{ applicant.chapterName }}</td>
+                    <td>{{ applicant.dateOfApplication }}</td>
+                    <td>{{ applicant.applicantName }}</td>
+                    <td>{{ applicant.mobileNum }}</td>
+                    <td>{{ applicant.email }}</td>
+                    <td>{{ applicant.deliveryAddress }}</td>
+                    <td>{{ applicant.invitedBy }}</td>
+                    <td>{{ applicant.specialtyAppliedFor }}</td>
+                    <td>{{ applicant.industry }}</td>
+                    <td>{{ applicant.specialtyApproved }}</td>
+                    <td>{{ applicant.orgInvite }}</td>
+                    <td>{{ applicant.convictionHistory }}</td>
+                    <td>{{ applicant.ausBusNum }}</td>
+                    <td>{{ applicant.businessName }}</td>
+                    <td>{{ applicant.busPhoneNum }}</td>
+                    <td>{{ applicant.website }}</td>
+                    <td>{{ applicant.businessAdd }}</td>
+                    <td><a href="{{ url_for('read', highlight_id=applicant.education.acadCode, highlight_table='education') }}">
+                            {{ applicant.education.acadCode }}</a></td>
+                    <td>
+                        <a href="{{ url_for('update', applicantID=applicant.applicantID) }}" class="action-link update" title="Update">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="{{ url_for('delete', applicantID=applicant.applicantID) }}" class="action-link delete" title="Delete">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+                {% endfor %}
+            </table>
+
+            <div class="cap">References</div>
+            <table>
+                <tr>
+                    <th>Business Reference Code</th>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Business</th>
+                    <th>Mobile</th>
+                    <th>Email Address</th>
+                    <th>Business Relationship</th>
+                    <th>Applicant</th>
+                </tr>
+                {% for reference in references %}
+                <tr id="reference_{{ reference.busRefCode }}"
+                    class="{{ 'highlight' if highlight_table == 'reference' and highlight_id|int == reference.busRefCode }}">
+                    <td>{{ reference.busRefCode }}</td>
+                    <td>{{ reference.nameOfBusRef }}</td>
+                    <td>{{ reference.busRefPosition }}</td>
+                    <td>{{ reference.busRefBusiness }}</td>
+                    <td>{{ reference.busRefMobileNum }}</td>
+                    <td>{{ reference.busRefEmail }}</td>
+                    <td>{{ reference.busRefRelationship }}</td>
+                    <td><a href="{{ url_for('read', highlight_id=reference.applicantID, highlight_table='applicant') }}">
+                            {{ reference.applicantID }}</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            <div class="cap">Education</div>
+            <table>
+                <tr>
+                    <th>Academic Code</th>
+                    <th>Year Graduated</th>
+                    <th>School Name</th>
+                    <th>School Address</th>
+                    <th>Degree</th>
+                    <th>Applicant</th>
+                </tr>
+                {% for education in educations %}
+                <tr id="education_{{ education.acadCode }}"
+                    class="{{ 'highlight' if highlight_table == 'education' and highlight_id|int == education.acadCode }}">
+                    <td>{{ education.acadCode }}</td>
+                    <td>{{ education.yearGrad }} </td>
+                    <td>{{ education.schoolName }}</td>
+                    <td>{{ education.schoolAddress }}</td>
+                    <td>{{ education.degree }}</td>
+                    <td><a href="{{ url_for('read', highlight_id=education.applicant.applicantID, highlight_table='applicant') }}">
+                            {{ education.applicant.applicantID }}</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            <div class="Flex" style="margin-bottom: 20px";>
+                <a href="{{ url_for('home') }}" class="Button">Back to Home <i class="fa-solid fa-house"></i></a>
+                <a href="{{ url_for('create') }}" class="Button">Add New Applicant <i class="fa-solid fa-user"></i></a>
+                <a href="{{ url_for('query') }}" class="Button">Query Database <i class="fa-solid fa-search"></i></a>
+            </div>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/a0d1cfe5fa.js" crossorigin="anonymous"></script>
+    <script>
+        var highlightedElement = document.querySelector('.highlight');
+            if (highlightedElement) {
+                highlightedElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+    </script>
+</body>
+
+</html>

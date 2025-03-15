@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNI Applicant Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href='/static/login_style.css'>
+</head>
+
+<body>
+    <div class="Background"></div>
+    <div class="Wrapper">
+        <div class="logo-nav-container">
+            <div class="Header">
+                <img src="https://bnihoustoneast.com/img/site/6006f0d94781dc002a5e23df.png" alt="BNI logo"
+                    height="40px">
+            </div>
+            <nav class="nav-items">
+                <a href="#about">BNI</a>
+                <a href="#database">DATABASE PROJECT</a>
+                <a href="#members">GROUP MEMBERS</a>
+            </nav>
+        </div>
+        <button class="login-btn" id="loginBtn">LOG IN</button>
+    </div>
+
+    <div id="loginModal" class="modal">
+        <div class="Wrapper-inner">
+            <div id="flashMessage" class="flash-message" style="display: none;"></div>
+            <form id="loginForm">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <input type="submit" value="LOG IN">
+            </form>
+        </div>
+    </div>
+
+    <section id="about" class="section">
+        <h2>BNI Australia</h2>
+        <p>Business Network International (BNI) Australia is a professional networking organization that facilitates
+            business growth through a structured, positive, and professional referral marketing program.
+            BNI Australia offers a platform for business owners and professionals to create solid, long-term
+            partnerships
+            with others who share their values.</p>
+        <h3>BNI GOALS</h3>
+        <p>To generate business referrals while also supporting its members' growth and success through networking and
+            collaborative support. By establishing a culture of collaboration and trust, BNI Australia hopes to improve
+            its members' business opportunities and professional development.</p>
+        <h3>BNI MISSION</h3>
+        <p>BNI Australia's mission is to assist its members in growing their businesses by providing a structured,
+            positive, and professional referral marketing program. This program helps members build long-term,
+            meaningful relationships with high-quality business professionals.</p>
+    </section>
+
+    <section id="database" class="section">
+        <h2>Database Project</h2>
+        <p>The BNI DBM Project is a project made and curated by sophomore Computer Science students of the Polytechnic
+            University of the Philippines that aims to create a way for BNI members to easily manage, access, and
+            manipulate application data of aspiring BNI Australia applicants. By focusing on the development of a
+            robust, scalable, and efficient database, the project ensures seamless CRUD (Create, Read, Update, Delete)
+            operations.</p>
+    </section>
+
+    <section id="members" class="section">
+        <h2>Members</h2>
+            <p>This project is accomplished by the following students from BS Computer Science 2-3: </p>
+            <p class="names"><strong>Del Rosario, Jimalyn B.</strong></p>
+            <p class="names"><strong>Delos Santos, Marjorie </strong></p>
+            <p class="names"><strong>Manio, Jessica  </strong></p>
+            <p class="names"><strong>Xavier, Mikhail Gabriel </strong></p>
+    </section>
+
+    <script>
+        const modal = document.getElementById("loginModal");
+        const btn = document.getElementById("loginBtn");
+        const flashMessage = document.getElementById("flashMessage");
+
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = '/'; // Redirect to home page
+                    } else {
+                        flashMessage.textContent = data.message || "Login failed. Please try again.";
+                        flashMessage.className = "flash-message error";
+                        flashMessage.style.display = "block";
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    flashMessage.textContent = "An error occurred. Please try again.";
+                    flashMessage.className = "flash-message error";
+                    flashMessage.style.display = "block";
+                });
+        });
+    </script>
+</body>
+
+</html>
